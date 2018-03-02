@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chinazyjr.app.dao.UserTestDao">
+
+	<insert id="save-user" parameterType="list">
+		INSERT INTO t_user (
+			name,
+			age
+		) VALUES
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+				#{item.name},
+				#{item.age}
+			)
+		</foreach>
+	</insert>
+
+
+	<select id="get-user-by-name" parameterType="UserTest" resultType="UserTest">
+		SELECT
+			id id,
+			name name,
+			age age,
+			update_time updateTime
+		FROM
+			t_user
+		WHERE
+			1 = 1
+		<if test="name != null">
+			AND name = #{name}
+		</if>
+		<if test="age != null">
+			AND age = #{age}
+		</if>
+	</select>
+
+</mapper>
